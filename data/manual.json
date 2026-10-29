@@ -4,18 +4,39 @@
     "machineId": "502",
     "machineName": "502激光焊机",
     "manualTitle": "操作工快速处置手册",
-    "manualVersion": "0.1.0",
-    "contentStatus": "空白内容框架",
-    "lastUpdated": "2026-09-30"
+    "manualVersion": "0.2.0",
+    "contentStatus": "已录入1项异常处理",
+    "lastUpdated": "2026-10-29"
   },
-  "notices": [
+  "notices": [],
+  "faults": [
     {
-      "level": "warning",
-      "title": "内容尚未发布",
-      "body": "当前仅建立独立手册框架。正式故障处置、维护和安全内容须经现场审核后录入。"
+      "id": "centering-2-cannot-retract",
+      "title": "2#对中无法退出处理手顺",
+      "summary": "遇到2#对中无法退出的异常时，按以下步骤处理。",
+      "keywords": [
+        "2#对中",
+        "无法退出",
+        "入口阀台"
+      ],
+      "steps": [
+        {
+          "title": "切换手动并打开2#对中",
+          "text": "将焊机切换到手动，然后按2#对中打开按钮。"
+        },
+        {
+          "title": "夹钳移至中间后再次打开",
+          "text": "如果还是没有退出，就将夹钳打到中间位置，然后按2#对中打开按钮。"
+        },
+        {
+          "title": "入口阀台处理",
+          "text": "还是不行的话，就去焊机入口阀台位置，按住图中阀按钮，让图中的数字大于150。这样就可打开2#对中。如连续出现3次无法打开，请联系点检，同时手动维持。",
+          "image": "./assets/images/centering-2-valve.jpeg",
+          "alt": "入口阀台按钮及数字显示位置"
+        }
+      ]
     }
   ],
-  "faults": [],
   "maintenance": [],
   "safety": []
 }
