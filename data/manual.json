@@ -4,8 +4,8 @@
     "machineId": "502",
     "machineName": "502激光焊机",
     "manualTitle": "操作工快速处置手册",
-    "manualVersion": "0.2.0",
-    "contentStatus": "已录入1项异常处理",
+    "manualVersion": "0.3.0",
+    "contentStatus": "已录入2项异常处理",
     "lastUpdated": "2026-10-29"
   },
   "notices": [],
@@ -33,6 +33,43 @@
           "text": "还是不行的话，就去焊机入口阀台位置，按住图中阀按钮，让图中的数字大于150。这样就可打开2#对中。如连续出现3次无法打开，请联系点检，同时手动维持。",
           "image": "./assets/images/centering-2-valve-annotated.png",
           "alt": "入口阀台按钮及数字显示位置"
+        }
+      ]
+    },
+    {
+      "id": "lower-guide-roll-adjustment",
+      "title": "下导向轮动作异常处理手顺",
+      "summary": "下导向轮未按带钢头尾厚度调整时，QCDS中同规格整根焊缝出现高度差，影响焊接质量。",
+      "keywords": [
+        "下导向轮",
+        "高度差",
+        "QCDS",
+        "调整值"
+      ],
+      "steps": [
+        {
+          "title": "观察QCDS焊缝",
+          "text": "当QCDS中的焊缝出现与带钢头尾厚度明显不一致的高度差时，检查下导向轮调整数据。",
+          "image": "./assets/images/lower-roll-qcds.png",
+          "alt": "QCDS焊缝曲线原图"
+        },
+        {
+          "title": "检查导向轮调整值",
+          "text": "观察PILOT ROLL ENTRY / EXIT右侧蓝底数字，为导向轮实际调整值。调整量＝（厚带厚度－薄带厚度）÷2，调整薄带一侧。例如4.0 mm接5.0 mm，调整量为0.5 mm。图中①为实际值，②为Welding param.，③为Data accept。",
+          "image": "./assets/images/lower-roll-controls-annotated.png",
+          "alt": "设备数据画面，标出下导向轮实际值及两个操作按钮"
+        },
+        {
+          "title": "重新接收数据",
+          "text": "如果蓝底数值明显不对，点击Welding param.进入手动数据状态，然后点击Data accept接收数据。 "
+        },
+        {
+          "title": "手动调整带钢厚度",
+          "text": "如果数值仍无变化，进入手动数据状态，将数据不正常的一边手动增加1 mm或减少1 mm，再点击Data accept接收数据。"
+        },
+        {
+          "title": "恢复自动数据",
+          "text": "当导向轮数值能够正常调整后，将数据调回自动状态，即可正常生产。"
         }
       ]
     }
