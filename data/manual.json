@@ -4,9 +4,9 @@
     "machineId": "502",
     "machineName": "502激光焊机",
     "manualTitle": "操作工快速处置手册",
-    "manualVersion": "0.3.0",
+    "manualVersion": "0.3.1",
     "contentStatus": "已录入2项异常处理",
-    "lastUpdated": "2026-10-29"
+    "lastUpdated": "2026-10-30"
   },
   "notices": [],
   "faults": [
@@ -31,7 +31,7 @@
         {
           "title": "入口阀台处理",
           "text": "还是不行的话，就去焊机入口阀台位置，按住图中阀按钮，让图中的数字大于150。这样就可打开2#对中。如连续出现3次无法打开，请联系点检，同时手动维持。",
-          "image": "./assets/images/centering-2-valve-annotated.png",
+          "image": "./assets/images/centering-2-valve.jpeg?v=0.3.1",
           "alt": "入口阀台按钮及数字显示位置"
         }
       ]
