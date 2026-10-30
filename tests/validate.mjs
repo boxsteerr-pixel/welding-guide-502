@@ -13,11 +13,11 @@ const manifest = JSON.parse(manifestText);
 
 assert.equal(manual.machine.machineId, "502");
 assert.equal(manual.machine.machineName, "502激光焊机");
-assert.equal(manual.machine.manualVersion, "0.3.1");
+assert.equal(manual.machine.manualVersion, "0.3.2");
 assert.equal(manual.faults.length, 2);
 assert.equal(manual.faults[0].id, "centering-2-cannot-retract");
 assert.equal(manual.faults[0].steps.length, 3);
-assert.equal(manual.faults[0].steps[2].image, "./assets/images/centering-2-valve.jpeg?v=0.3.1");
+assert.equal(manual.faults[0].steps[2].image, "./assets/images/centering-2-valve-guide.svg?v=0.3.2");
 for (const item of manual.faults) {
   for (const step of item.steps) {
     if (step.image) await stat(path.join(root, step.image.split("?")[0]));
@@ -27,7 +27,7 @@ assert.deepEqual(manual.maintenance, []);
 assert.deepEqual(manual.safety, []);
 assert.equal(manifest.start_url, "./");
 assert.equal(manifest.scope, "./");
-assert.match(sw, /const CACHE_NAME = "welding-guide-502-v15"/);
+assert.match(sw, /const CACHE_NAME = "welding-guide-502-v16"/);
 assert.match(html, /id="currentTime"/);
 assert.match(html, /system-time\.js\?v=1/);
 assert.match(sw, /system-time\.js\?v=1/);
