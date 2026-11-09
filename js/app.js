@@ -3,7 +3,6 @@
 
   const state = { manual: null, section: "home", query: "", deferredInstallPrompt: null };
   const sectionNames = ["home", "faults", "maintenance", "safety"];
-  const riskLabels = { high: "高风险", medium: "注意", low: "一般" };
 
   function text(value) {
     return document.createTextNode(value == null ? "" : String(value));
@@ -53,18 +52,13 @@
   function buildEntry(item) {
     const details = document.createElement("details");
     details.className = "manual-entry";
-    details.dataset.risk = item.risk || "medium";
     const summary = document.createElement("summary");
-    const risk = document.createElement("span");
-    risk.className = `risk ${item.risk || "medium"}`;
-    risk.append(text(riskLabels[item.risk] || riskLabels.medium));
     const title = document.createElement("span");
     title.append(text(item.title || "未命名项目"));
     summary.append(title);
 
     const body = document.createElement("div");
     body.className = "entry-body";
-    body.append(risk);
     if (item.summary) {
       const paragraph = document.createElement("p");
       paragraph.append(text(item.summary));
@@ -90,11 +84,55 @@
           image.src = step.image;
           image.alt = step.alt || step.title || item.title || "操作步骤图片";
           image.loading = "lazy";
+          image.decoding = "async";
+          if (step.imageWidth && step.imageHeight) {
+            image.width = step.imageWidth;
+            image.height = step.imageHeight;
+          }
+          image.tabIndex = 0;
+          image.setAttribute("role", "button");
+          image.setAttribute("aria-label", `查看大图：${image.alt}`);
+          image.addEventListener("keydown", function (event) {
+            if (event.key === "Enter" || event.key === " ") { event.preventDefault(); openImage(image); }
+          });
           image.addEventListener("click", function () { openImage(image); });
           const hint = document.createElement("span");
           hint.className = "image-hint";
           hint.append(text("点击查看大图"));
           card.append(image, hint);
+          const error = document.createElement("p");
+          error.className = "image-error";
+          error.hidden = true;
+          error.setAttribute("role", "status");
+          error.append(text("图片加载失败，请检查网络后"));
+          const retry = document.createElement("button");
+          retry.type = "button";
+          retry.append(text("重试"));
+          retry.addEventListener("click", function () {
+            error.hidden = true;
+            const url = new URL(step.image, location.href);
+            url.searchParams.set("retry", Date.now());
+            image.src = url.href;
+          });
+          error.append(retry);
+          image.addEventListener("error", function () { error.hidden = false; hint.hidden = true; });
+          image.addEventListener("load", function () { error.hidden = true; hint.hidden = false; });
+          card.append(error);
+          if (step.imageCaption) {
+            const caption = document.createElement("p");
+            caption.className = "image-caption";
+            caption.append(text(step.imageCaption));
+            card.append(caption);
+          }
+          if (step.originalImage) {
+            const original = document.createElement("a");
+            original.href = step.originalImage;
+            original.target = "_blank";
+            original.rel = "noopener";
+            original.className = "image-original";
+            original.append(text("查看保留的原始图片"));
+            card.append(original);
+          }
         }
         body.append(card);
       });

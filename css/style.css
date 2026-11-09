@@ -91,6 +91,12 @@ button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
 .step-card { margin-top: 10px; padding: 11px; border: 1px solid #d9e6ee; border-radius: 8px; background: #f9fcfe; }
 .step-card img { display: block; width: 100%; max-height: 640px; margin-top: 9px; object-fit: contain; border: 1px solid #d3e0e8; border-radius: 7px; background: #fff; cursor: zoom-in; touch-action: manipulation; }
 .image-hint { display: block; margin-top: 5px; color: var(--muted); text-align: right; font-size: 11px; }
+.step-card img { height: auto; }
+.step-card img:focus-visible { outline: 3px solid #075fae; outline-offset: 3px; }
+.step-card .image-caption { margin: 10px 0; padding: 12px 14px; border-left: 4px solid #d18b00; border-radius: 6px; background: #fff5d6; color: #4a3500; font-weight: 700; line-height: 1.7; }
+.image-original { display: inline-block; padding: 8px 0; color: #075fae; text-underline-offset: 3px; }
+.image-error { padding: 10px; background: #fff0ed; color: #8b2518; }
+.image-error button { margin-left: 6px; padding: 7px 14px; border: 1px solid currentColor; border-radius: 6px; background: white; color: inherit; }
 .empty-state { min-height: 214px; display: grid; place-items: center; align-content: center; padding: 24px; color: var(--muted); text-align: center; border: 1px dashed #bdccd6; border-radius: 10px; background: rgba(255,255,255,.62); }
 .empty-state > span { width: 46px; height: 46px; display: grid; place-items: center; color: var(--blue); border: 1px solid #afd0e4; border-radius: 50%; background: var(--blue-light); font-size: 28px; }
 .empty-state h3 { margin: 10px 0 2px; color: var(--ink); }
