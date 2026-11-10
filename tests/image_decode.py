@@ -20,9 +20,10 @@ for section in ("faults", "maintenance", "safety"):
                 embedded = svg.find("{http://www.w3.org/2000/svg}image")
                 assert embedded is not None
                 href = embedded.attrib["href"]
-                assert href.startswith("data:image/jpeg;base64,")
+                assert href.startswith(("data:image/jpeg;base64,", "data:image/webp;base64,"))
                 raw = base64.b64decode(href.split(",", 1)[1], validate=True)
-                assert raw == (root / "assets/images/centering-2-valve.jpeg").read_bytes()
+                if href.startswith("data:image/jpeg;"):
+                    assert raw == (root / step["originalImage"]).read_bytes()
                 source = io.BytesIO(raw)
             else:
                 source = path

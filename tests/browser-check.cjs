@@ -19,6 +19,22 @@ async function main() {
   const base = process.env.CHECK_URL || `http://127.0.0.1:${server.address().port}/welding-guide-502/`;
   const browser = await chromium.launch({channel:'chrome',headless:true});
   const results = [];
+  async function checkChillerImages(page) {
+    const entries = page.locator('#fault-list details:nth-child(n+3)');
+    await entries.last().waitFor();
+    assert.equal(await entries.count(),2);
+    for (const entry of await entries.all()) {
+      await entry.locator('summary').click();
+      const cards = entry.locator('.step-card');
+      assert.equal(await cards.count(),7);
+      assert.deepEqual(await cards.evaluateAll(nodes=>nodes.map(node=>node.querySelectorAll('img').length)),[0,1,1,1,1,1,0]);
+      for (const img of await entry.locator('img').all()) {
+        await img.scrollIntoViewIfNeeded();
+        await img.evaluate(el=>el.decode());
+      }
+      assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth),'横向溢出');
+    }
+  }
   try {
     for (const viewport of [{width:390,height:844},{width:1440,height:1000}]) {
       const context = await browser.newContext({viewport,deviceScaleFactor:1,isMobile:viewport.width<500,hasTouch:viewport.width<500});
@@ -27,9 +43,9 @@ async function main() {
       page.on('pageerror',e=>errors.push(e.message));
       page.on('response',r=>{if(r.url().startsWith(base)&&r.status()>=400&&!r.url().includes('/qa-missing-image.webp')) errors.push(`${r.status()} ${r.url()}`);});
       await page.goto(base+'#section=faults');
-      await page.waitForFunction(()=>document.querySelectorAll('#fault-list details').length===2);
-      await page.evaluate(()=>document.querySelectorAll('#fault-list details').forEach(d=>d.open=true));
-      const images=page.locator('#fault-list .step-card img');
+      await page.waitForFunction(()=>document.querySelectorAll('#fault-list details').length===4);
+      await page.evaluate(()=>Array.from(document.querySelectorAll('#fault-list details')).slice(0,2).forEach(d=>d.open=true));
+      const images=page.locator('#fault-list details:nth-child(-n+2) .step-card img');
       assert.equal(await images.count(),3);
       for (const img of await images.all()) {
         await img.scrollIntoViewIfNeeded();
@@ -60,17 +76,21 @@ async function main() {
       await page.evaluate(()=>navigator.serviceWorker.ready);
       await page.reload();
       await page.waitForFunction(()=>!!navigator.serviceWorker.controller);
-      await page.evaluate(()=>document.querySelectorAll('#fault-list details').forEach(d=>d.open=true));
-      for(const img of await page.locator('#fault-list .step-card img').all()) {await img.scrollIntoViewIfNeeded();await img.evaluate(el=>el.decode());}
+      await page.evaluate(()=>Array.from(document.querySelectorAll('#fault-list details')).slice(0,2).forEach(d=>d.open=true));
+      for(const img of await page.locator('#fault-list details:nth-child(-n+2) .step-card img').all()) {await img.scrollIntoViewIfNeeded();await img.evaluate(el=>el.decode());}
       // Wait until the worker's cache.put has completed before cutting the network.
-      await page.waitForFunction(async()=>{const c=await caches.open('welding-guide-502-v17');return (await c.keys()).filter(r=>/guide-v1.svg|controls-v1.webp|qcds-v1.webp/.test(r.url)).length===3;});
+      await checkChillerImages(page);
+      await page.screenshot({path:path.join(root,`tests/qa-chiller-${viewport.width}.png`),fullPage:true});
+      await page.waitForFunction(async()=>{const c=await caches.open('welding-guide-502-v23');return (await c.keys()).filter(r=>/guide-v1.svg|controls-v1.webp|qcds-v1.webp|chiller-.*-marked-v[234].svg/.test(r.url)).length===8;});
       await context.setOffline(true);
       await page.reload();
-      await page.waitForFunction(()=>document.querySelectorAll('#fault-list details').length===2);
-      await page.evaluate(()=>document.querySelectorAll('#fault-list details').forEach(d=>d.open=true));
-      for(const img of await page.locator('#fault-list .step-card img').all()) {await img.scrollIntoViewIfNeeded();await img.evaluate(el=>el.decode());}
+      await checkChillerImages(page);
+      await page.locator('nav [data-section="faults"]:visible').first().click();
+      await page.waitForFunction(()=>document.querySelectorAll('#fault-list details').length===4);
+      await page.evaluate(()=>Array.from(document.querySelectorAll('#fault-list details')).slice(0,2).forEach(d=>d.open=true));
+      for(const img of await page.locator('#fault-list details:nth-child(-n+2) .step-card img').all()) {await img.scrollIntoViewIfNeeded();await img.evaluate(el=>el.decode());}
       assert.deepEqual(errors,[]);
-      results.push({viewport,images:3,steps:[3,5],offline:true,modal:true,errors});
+      results.push({viewport,faultImages:3,chillerImages:10,steps:[3,5,7,7],offline:true,modal:true,errors});
       await context.close();
     }
     console.log(JSON.stringify({base,results},null,2));

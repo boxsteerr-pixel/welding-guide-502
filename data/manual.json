@@ -4,9 +4,9 @@
     "machineId": "502",
     "machineName": "502激光焊机",
     "manualTitle": "操作工快速处置手册",
-    "manualVersion": "0.3.3",
-    "contentStatus": "已录入2项异常处理",
-    "lastUpdated": "2026-11-09"
+    "manualVersion": "0.3.9",
+    "contentStatus": "已录入4项异常处理手顺",
+    "lastUpdated": "2026-11-10"
   },
   "notices": [],
   "faults": [
@@ -81,6 +81,142 @@
         {
           "title": "恢复自动数据",
           "text": "当导向轮数值能够正常调整后，将数据调回自动状态，即可正常生产。"
+        }
+      ]
+    },
+    {
+      "id": "chiller-1-to-2",
+      "title": "冷水机切换手顺 · 1# → 2#",
+      "summary": "适用于 C502 当前使用 1# 冷水机、需将水路切换至 2# 冷水机的情况。",
+      "stopConditions": [
+        "严禁在任一冷水机运转时切换阀台阀门。两套冷水机均确认停止后，再操作阀台。"
+      ],
+      "steps": [
+        {
+          "title": "停止激光源",
+          "text": "在焊机激光源操作屏左下角按 LASER ON/OFF。等待画面显示腔体压力达到 1100 hPa，确认激光源已停止。"
+        },
+        {
+          "title": "将 2# 面板上的三个开关拨到停止位",
+          "text": "到焊机入口传动侧的 2# 冷水机处，将面板上的三个选择开关全部拨到中间停止位。1# 冷水机面板上的三个选择开关内部未接线。",
+          "image": "./assets/images/chiller-switches-all-marked-v3.svg",
+          "alt": "2# 冷水机面板上的三个选择开关",
+          "originalImage": "./assets/images/chiller-switches-source.jpeg",
+          "imageWidth": 986,
+          "imageHeight": 718,
+          "imageCaption": "黄色框选标出本步骤查看或操作的位置。从左到右为型号切换开关 1、型号切换开关 2、备机运行控制开关。照片用于辨认开关位置，现场档位按本步骤确认。"
+        },
+        {
+          "title": "确认 1# 冷水机停止",
+          "text": "在 1# 冷水机现场操作画面确认同时显示「铜泵停止」「铝泵停止」「内泵停止」。",
+          "image": "./assets/images/chiller-hmi-1-marked-v2.svg",
+          "alt": "1# 冷水机操作屏的运行状态照片",
+          "originalImage": "./assets/images/chiller-hmi-1-source.jpeg",
+          "imageWidth": 760,
+          "imageHeight": 618,
+          "imageCaption": "黄色框选标出本步骤查看或操作的位置。1# 操作屏定位参考。照片显示的是运行状态，停机确认以现场的三项「停止」提示为准。"
+        },
+        {
+          "title": "确认 2# 冷水机停止",
+          "text": "在 2# 冷水机现场操作画面确认同时显示「铜泵停止」「铝泵停止」「内泵停止」。两套冷水机均确认停止后，再切换阀门。",
+          "image": "./assets/images/chiller-hmi-2-marked-v4.svg",
+          "alt": "2# 冷水机操作屏的停止状态照片",
+          "originalImage": "./assets/images/chiller-hmi-2-source.jpeg",
+          "imageWidth": 814,
+          "imageHeight": 646,
+          "imageCaption": "黄色框选标出本步骤查看或操作的位置。在屏幕左侧状态区核对铜泵、铝泵和内泵的停止提示。"
+        },
+        {
+          "title": "将阀台上的 12 个阀门全部切至横向",
+          "text": "在切换阀台，将 12 个阀门全部扳到横向并扳到底，防止水回路窜流。按原手顺核对手阀上的两个红色箭头，确认箭头与管道方向一致。",
+          "image": "./assets/images/chiller-valves-marked-v3.svg",
+          "alt": "切换阀台正面，四排共十二个阀柄",
+          "originalImage": "./assets/images/chiller-valves-source.jpeg",
+          "imageWidth": 1551,
+          "imageHeight": 1251,
+          "imageCaption": "黄色框选标出本步骤查看或操作的位置。四排阀门，每排三个。照片为阀柄全部竖向的示例，对应 1# 冷水机。全部横向对应 2# 冷水机。"
+        },
+        {
+          "title": "将前两个转换开关拨到 2# 运行位",
+          "text": "回到 2# 冷水机面板，将从左数前两个转换开关拨到 2# 运行位。",
+          "image": "./assets/images/chiller-switches-two-marked-v3.svg",
+          "alt": "2# 冷水机面板，前两个转换开关位于左侧",
+          "originalImage": "./assets/images/chiller-switches-source.jpeg",
+          "imageWidth": 986,
+          "imageHeight": 718,
+          "imageCaption": "黄色框选标出本步骤查看或操作的位置。从左到右为型号切换开关 1、型号切换开关 2、备机运行控制开关。照片用于辨认开关位置，现场档位按本步骤确认。"
+        },
+        {
+          "title": "恢复激光源并复位 HMI",
+          "text": "在激光源操作面板按 LASER ON/OFF 送激光。启动时若出现水报警，按原手顺使用激光源复位按钮（// 键），激光源会自动启动。待状态显示 OK、压力达到 140 后，复位 HMI，切换完成。"
+        }
+      ]
+    },
+    {
+      "id": "chiller-2-to-1",
+      "title": "冷水机切换手顺 · 2# → 1#",
+      "summary": "适用于 C502 当前使用 2# 冷水机、需将水路切换至 1# 冷水机的情况。",
+      "stopConditions": [
+        "严禁在任一冷水机运转时切换阀台阀门。两套冷水机均确认停止后，再操作阀台。"
+      ],
+      "steps": [
+        {
+          "title": "停止激光源",
+          "text": "在焊机激光源操作屏左下角按 LASER ON/OFF。等待画面显示腔体压力达到 1100 hPa，确认激光源已停止。"
+        },
+        {
+          "title": "将 2# 面板上的三个开关拨到停止位",
+          "text": "到焊机入口传动侧的 2# 冷水机处，将面板上的三个选择开关全部拨到中间停止位。1# 冷水机面板上的三个选择开关内部未接线。",
+          "image": "./assets/images/chiller-switches-all-marked-v3.svg",
+          "alt": "2# 冷水机面板上的三个选择开关",
+          "originalImage": "./assets/images/chiller-switches-source.jpeg",
+          "imageWidth": 986,
+          "imageHeight": 718,
+          "imageCaption": "黄色框选标出本步骤查看或操作的位置。从左到右为型号切换开关 1、型号切换开关 2、备机运行控制开关。照片用于辨认开关位置，现场档位按本步骤确认。"
+        },
+        {
+          "title": "确认 1# 冷水机停止",
+          "text": "在 1# 冷水机现场操作画面确认同时显示「铜泵停止」「铝泵停止」「内泵停止」。",
+          "image": "./assets/images/chiller-hmi-1-marked-v2.svg",
+          "alt": "1# 冷水机操作屏的运行状态照片",
+          "originalImage": "./assets/images/chiller-hmi-1-source.jpeg",
+          "imageWidth": 760,
+          "imageHeight": 618,
+          "imageCaption": "黄色框选标出本步骤查看或操作的位置。1# 操作屏定位参考。照片显示的是运行状态，停机确认以现场的三项「停止」提示为准。"
+        },
+        {
+          "title": "确认 2# 冷水机停止",
+          "text": "在 2# 冷水机现场操作画面确认同时显示「铜泵停止」「铝泵停止」「内泵停止」。两套冷水机均确认停止后，再切换阀门。",
+          "image": "./assets/images/chiller-hmi-2-marked-v4.svg",
+          "alt": "2# 冷水机操作屏的停止状态照片",
+          "originalImage": "./assets/images/chiller-hmi-2-source.jpeg",
+          "imageWidth": 814,
+          "imageHeight": 646,
+          "imageCaption": "黄色框选标出本步骤查看或操作的位置。在屏幕左侧状态区核对铜泵、铝泵和内泵的停止提示。"
+        },
+        {
+          "title": "将阀台上的 12 个阀门全部切至竖向",
+          "text": "在切换阀台，将 12 个阀门全部扳到竖向并扳到底，防止水回路窜流。按原手顺核对手阀上的两个红色箭头，确认箭头与管道方向一致。",
+          "image": "./assets/images/chiller-valves-marked-v3.svg",
+          "alt": "切换阀台正面，四排共十二个阀柄",
+          "originalImage": "./assets/images/chiller-valves-source.jpeg",
+          "imageWidth": 1551,
+          "imageHeight": 1251,
+          "imageCaption": "黄色框选标出本步骤查看或操作的位置。四排阀门，每排三个。照片为阀柄全部竖向的示例，对应 1# 冷水机。全部横向对应 2# 冷水机。"
+        },
+        {
+          "title": "将前两个转换开关拨到 1# 运行位",
+          "text": "回到 2# 冷水机面板，将从左数前两个转换开关拨到 1# 运行位。",
+          "image": "./assets/images/chiller-switches-two-marked-v3.svg",
+          "alt": "2# 冷水机面板，前两个转换开关位于左侧",
+          "originalImage": "./assets/images/chiller-switches-source.jpeg",
+          "imageWidth": 986,
+          "imageHeight": 718,
+          "imageCaption": "黄色框选标出本步骤查看或操作的位置。从左到右为型号切换开关 1、型号切换开关 2、备机运行控制开关。照片用于辨认开关位置，现场档位按本步骤确认。"
+        },
+        {
+          "title": "恢复激光源并复位 HMI",
+          "text": "在激光源操作面板按 LASER ON/OFF 送激光。启动时若出现水报警，按原手顺使用激光源复位按钮（// 键），激光源会自动启动。待状态显示 OK、压力达到 140 后，复位 HMI，切换完成。"
         }
       ]
     }
