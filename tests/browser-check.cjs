@@ -81,7 +81,7 @@ async function main() {
       // Wait until the worker's cache.put has completed before cutting the network.
       await checkChillerImages(page);
       await page.screenshot({path:path.join(root,`tests/qa-chiller-${viewport.width}.png`),fullPage:true});
-      await page.waitForFunction(async()=>{const c=await caches.open('welding-guide-502-v23');return (await c.keys()).filter(r=>/guide-v1.svg|controls-v1.webp|qcds-v1.webp|chiller-.*-marked-v[234].svg/.test(r.url)).length===8;});
+      await page.waitForFunction(async()=>{const c=await caches.open('welding-guide-502-v24');return (await c.keys()).filter(r=>/guide-v1.svg|controls-v1.webp|qcds-v1.webp|chiller-.*-marked-v[234].svg/.test(r.url)).length===8;});
       await context.setOffline(true);
       await page.reload();
       await checkChillerImages(page);
@@ -97,3 +97,4 @@ async function main() {
   } finally {await browser.close();server.close();}
 }
 main().catch(e=>{console.error(e);process.exit(1);});
+
