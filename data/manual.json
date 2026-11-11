@@ -130,6 +130,7 @@
           "title": "将阀台上的 12 个阀门全部切至横向",
           "text": "在切换阀台，将 12 个阀门全部扳到横向并扳到底，防止水回路窜流。按原手顺核对手阀上的两个红色箭头，确认箭头与管道方向一致。",
           "image": "./assets/images/chiller-valves-marked-v3.svg",
+          "imagePreview": "./assets/images/chiller-valves-preview-mobile-v2.svg",
           "alt": "切换阀台正面，四排共十二个阀柄",
           "originalImage": "./assets/images/chiller-valves-source.jpeg",
           "imageWidth": 1551,
